@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+        body {
+    font-family: 'Roboto Condensed', sans-serif;
+    background: url('img/img10.jpeg') no-repeat center center fixed; /* Add this line */
+    background-size: cover; /* Add this line */
+    padding: 20px;
+    text-align: center;
+    color: #000;
+}
+
+        .form-container {
+            margin: 50px auto;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            outline: none;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:hover, input[type="email"]:hover, input[type="number"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgba(255, 0, 0, 0.8);
+            color: #000;
+            font-size: 1rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 0, 1);
+        }
+
+        .data-button {
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 2.5rem;
+            color: #000;
+            text-shadow: 0 0 15px rgba(255, 255, 0, 0.8);
+        }
+
+        h3 {
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1.5rem;
+            color: rgba(255, 0, 0, 0.8);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Management</h1>
+
+    <div class="form-container">
+        <h3>Create New User</h3>
+        <input type="text" id="userName" placeholder="Enter Name" required><br>
+        <input type="email" id="userEmail" placeholder="Enter Email" required><br>
+        <input type="number" id="userAge" placeholder="Enter Age" required><br>
+        <button onclick="createUser()">Create User</button>
+    </div>
+
+    <div class="data-button">
+        <button onclick="viewData()">View All Data</button>
+    </div>
+
+    <script>
+        function createUser() {
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const age = document.getElementById('userAge').value;
+
+            const user = { name, email, age };
+
+            fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            })
+            .then(response => response.json())
+            .then(() => {
+                alert('User created successfully!');
+                // Clear the fields after submission
+                document.getElementById('userName').value = '';
+                document.getElementById('userEmail').value = '';
+                document.getElementById('userAge').value = '';
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+            })
+        }
+
+        function viewData() {
+            window.location.href = "/data.html";
+        }
+    </script>
+</body>
+</html>

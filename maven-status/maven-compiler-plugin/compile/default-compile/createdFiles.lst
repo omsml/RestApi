@@ -1,0 +1,4 @@
+com\example\RestApi\UserController.class
+com\example\RestApi\User.class
+com\example\RestApi\UserService.class
+com\example\RestApi\SpringBootRestApiCrudApplication.class
